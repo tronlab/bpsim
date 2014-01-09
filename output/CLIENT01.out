@@ -1,0 +1,24 @@
+********************  CBP3  Start ***********************
+Trace:            ./traces/CLIENT01.trace
+Uops to simulate: Whole Trace
+
+parsing ./traces/CLIENT01.trace
+
+*********  RUN  1   *********
+Predictor:gshare
+config: 262144 counters, 64 KB cost
+Total cycles:                         999999
+
+Num_cond_br:                          880904
+Mispred_cond_br:                      26063
+Mispred_penalty_cond_br:              130315
+Conditional_MR:                       0.0296
+
+Num_ind_br:                           119087
+Mispred_ind_br:                       119088
+Mispred_penalty_ind_br:               595440
+Indirect_MR:                          1.0000
+Simulation Time: 0 Seconds
+
+********************  CBP3  End   ***********************
+Total Simulation Time: 1 Seconds

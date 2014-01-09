@@ -1,0 +1,5 @@
+********************  CBP3  Start ***********************
+Trace:            ./traces/tmp
+Uops to simulate: Whole Trace
+
+parsing ./traces/tmp

@@ -1,0 +1,13 @@
+Changes from original framework:
+
+	-Rather than use MPPKI, the new framework only considers miss-rate
+
+	-The new framework models an in order processor
+
+	-Traces now only consist of branch information to decrease trace size
+
+	-The multiple runs have been reduced to one
+
+
+See http://www.jilp.org/jwac-2/ for info on the original framework.
+

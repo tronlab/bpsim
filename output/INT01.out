@@ -1,0 +1,23 @@
+********************  CBP3  Start ***********************
+Trace:            ./traces/INT01.trace
+Uops to simulate: Whole Trace
+
+
+*********  RUN  1   *********
+Predictor:gshare
+config: 262144 counters, 64 KB cost
+Total cycles:                         999999
+
+Num_cond_br:                          999910
+Mispred_cond_br:                      117743
+Mispred_penalty_cond_br:              588715
+Conditional_MR:                       0.1178
+
+Num_ind_br:                           81
+Mispred_ind_br:                       81
+Mispred_penalty_ind_br:               405
+Indirect_MR:                          1.0000
+Simulation Time: 3 Seconds
+
+********************  CBP3  End   ***********************
+Total Simulation Time: 7 Seconds
