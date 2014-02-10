@@ -1,14 +1,40 @@
-TODO: Add license
-Changes from original framework:
-
-	-Rather than use MPPKI, the new framework only considers miss-rate
-
-	-The new framework models an in order processor
-
-	-Traces now only consist of branch information to decrease trace size
-
-	-The multiple runs have been reduced to one
 
 
-See http://www.jilp.org/jwac-2/ for info on the original framework.
+This framework is based on the framework provided here: 
+http://www.jilp.org/jwac-2/ please contact the original authors with questions.
+
+Build:
+This framework requires the following libraries:
+- boost IOstreams
+- boost Program Options
+- libz
+On a debian based system:
+apt-get installbboost-program-options-dev libboost-iostreams-dev zlib1g-dev
+
+Running:
+./cbp3_example.exe -t traces/CLIENT01.trace
+
+Predictors are implemented in C++ and create a library.
+To build the example, execute make in the top level directory.
+To add a new predictor:
+- Copy the example directory. 
+	cp ./predictors/example ./predictors/my_pred
+- Use modify Conditional.cpp and Indirect.cpp to implement your logic.
+- Build your new predictor
+	make PRED=my_pred
+
+Example predictors references:
+Driesen, Karel, and Urs Hölzle. "Multi-stage cascaded prediction." Euro-Par’99
+Parallel Processing. Springer Berlin Heidelberg, 1999. 1312-1321.
+
+Seznec, André, et al. "Design tradeoffs for the Alpha EV8 conditional branch
+predictor." Computer Architecture, 2002. Proceedings. 29th Annual International
+Symposium on. IEEE, 2002.
+
+
+TODO: Provide way to generate traces from competition.
+TODO: Let the linker resolve 3rd party libraries.
+TODO: Document predictor options
+TODO: Implement predictors from CBP3
+TODO: print 
 

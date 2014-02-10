@@ -1,25 +1,64 @@
-# Author: Hongliang Gao;   Created: Jan 27 2011
-# Description: Makefile for building cbp3.
-# DO NOT MODIFY. THIS FILE WILL NOT BE SUBMITTED WITH YOUR PREDICTOR
+# Author: Tom Manville
+# tdmanv@umich.edu
+# 2012
+#
+# Please see top level directory for license.
 
-# 32 for 32-bit system and 64 for 64-bit system
-FORMAT = 64
+PRED = example
 
-#CXXFLAGS = -g -Wall -Ireaderlib
-CXXFLAGS = -O3 -Wall -Ireaderlib
-CXX = g++
+TOP = .
 
-objects = cbp3_framework.o program_graph.o predictor.o ./readerlib/cbp3_reader.o
+PRED_DIR = $(TOP)/predictors/$(PRED)
+PRED_LIB = $(PRED_DIR)/libpred.a
 
-cbp3 : $(objects)
-	$(CXX) -o cbp3 $(objects) -Lreaderlib -lcbp3_trace.$(FORMAT)
-cbp3_framework.o: cbp3_framework.h ./readerlib/cbp3_reader.h ./readerlib/cbp3_def.h predictor.h
-predictor.o : ./readerlib/cbp3_def.h cbp3_framework.h predictor.h
-predictor.o : ./readerlib/cbp3_def.h program_graph.h
+CXX = g++ 
+CXXFLAGS = -I$(PRED_DIR) -Wall -Werror -O3 
+CXXFLAGS = -I$(PRED_DIR) -Wall -Werror -g
 
-cbp3_reader.o : ./readerlib/cbp3_reader.h
+COMMON_DIR = $(TOP)/common
+COMMON_LIB = $(COMMON_DIR)/libcommon.a
+
+BOOST_LIBS = /usr/lib/libboost_iostreams.a /usr/lib/x86_64-linux-gnu/libz.a /usr/lib/libboost_program_options.a 
+
+LDFLAGS = -L$(PRED_DIR) -L$(COMMON_DIR) -lpred -lcommon $(BOOST_LIBS)
+
+# File names
+EXEC = cbp3
+SOURCES = $(wildcard *.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+.PHONY : main
+main: 
+	make -C $(COMMON_DIR)
+	make -C $(PRED_DIR)
+	make $(EXEC)_$(PRED)
+
+
+$(EXEC)_$(PRED): $(EXEC)
+	mv $(EXEC) $(EXEC)_$(PRED).exe
+
+$(EXEC): $(OBJECTS) $(PRED_DIR)/libpred.a $(COMMON_LIB)
+	$(CXX) $(OBJECTS) $(COMMON_LIB) $(LDFLAGS) -o $(EXEC) 
+
+
+# To obtain object files
+%.o: %.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+
 
 .PHONY : clean
-clean :
-	rm -f cbp3 $(objects)
+clean: 
+	rm -f $(EXEC) $(OBJECTS) *.exe
+	make clean -C $(PRED_DIR)
+	make clean -C $(COMMON_DIR)
+
+
+PREDS = pc_sweep
+.PHONY : all
+all:
+	$(foreach var,$(PREDS),make PRED=$(var);)
+.PHONY : clean_all
+clean_all:
+	$(foreach var,$(PREDS),make clean PRED=$(var);)
 

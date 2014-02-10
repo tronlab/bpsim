@@ -1,34 +1,12 @@
-/*
- * Copyright (c) 2013 The Regents of The University of Michigan
- * All rights reserved.
+/* Author: Tom Manville
+ * tdmanv@umich.edu
+ * 2012
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met: redistributions of source code must retain the above copyright
- * notice, this list of conditions and the following disclaimer;
- * redistributions in binary form must reproduce the above copyright
- * notice, this list of conditions and the following disclaimer in the
- * documentation and/or other materials provided with the distribution;
- * neither the name of the copyright holders nor the names of its
- * contributors may be used to endorse or promote products derived from
- * this software without specific prior written permission.
+ * Please see LICENSE for license information.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
+ * Based on work by:
+ * Author: Hongliang Gao;   Created: Jan 27 2011
  */
-// Author: Hongliang Gao;   Created: Jan 27 2011
-// Description: framework header for cbp3.
-// DO NOT MODIFY. THIS FILE WILL NOT BE SUBMITTED WITH YOUR PREDICTOR.
 
 #ifndef CBP3_FRAMEWORK_H_INCLUDED
 #define CBP3_FRAMEWORK_H_INCLUDED
@@ -38,11 +16,14 @@
 
 // interface functions with the predictor
 
-void PredictorInit();        // initialize predictors (e.g., allocating arrays)
-void PredictorReset();       // reset predictor state at the beginning of a run
-void PredictorRunACycle();   // called once at the end of each cycle to calculate predictions
-void PredictorRunEnd();      // called at the end of a run
-void PredictorExit();        // called at the end of simulation
+extern void PredictorInit();        // initialize predictors (e.g., allocating arrays)
+extern void PredictorInit( int );
+extern void PredictorInit( int, int );
+//extern void PredictorInit(uint64_t hist_length, uint64_t table_size, uint64_t pc_bits, bool use_global);
+extern void PredictorReset();       // reset predictor state at the beginning of a run
+extern void PredictorRunACycle();   // called once at the end of each cycle to calculate predictions
+extern void PredictorRunEnd();      // called at the end of a run
+extern void PredictorExit();        // called at the end of simulation
 
 class cbp3_queue_entry_t;
 struct cbp3_cycle_activity_t;
@@ -57,7 +38,8 @@ const int                    rename(uint8_t reg);         // access rename table
 const int                    rename_flags();              // access rename table (for flags)
 const uint64_t               reg_val(uint8_t reg);        // access architecture reg file
 
-bool  report_pred( cbp3_queue_entry_t* entry, uint64_t pred );
+bool  report_taken_pred( cbp3_queue_entry_t* entry, int64_t pred );
+bool  report_target_pred( cbp3_queue_entry_t* entry, uint64_t pred );
 
 
 cbp3_queue_entry_t* get_fetch_entry(uint8_t e);
