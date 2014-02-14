@@ -1,7 +1,9 @@
 
+This framework is based on the framework used in the Championship Branch Prediction competition
+that took place at ISCA-38  http://isca2011.umaine.edu/ 
 
-This framework is based on the framework provided here: 
-http://www.jilp.org/jwac-2/ please contact the original authors with questions.
+More details of the competition can be obtained at http://www.jilp.org/jwac-2/ 
+
 
 Build:
 This framework requires the following libraries:
