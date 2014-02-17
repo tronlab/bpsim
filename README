@@ -11,6 +11,8 @@ This framework requires the following libraries:
 - libz
 On a debian based system:
 apt-get installbboost-program-options-dev libboost-iostreams-dev zlib1g-dev
+Boost library install directories may be different than in the Makefile depending
+on different systems.
 
 Running:
 ./cbp3_example.exe -t traces/CLIENT01.trace
